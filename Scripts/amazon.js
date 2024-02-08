@@ -1,5 +1,6 @@
 // importing cart and changing its name to mycart to avoid naming errors
 import {cart as myCart} from '../data/cart.js';//.. refers to moving out of amazon.js file
+import {products} from '../data/products.js';
 let productHTML = '';
 products.forEach((products)=> {
     productHTML += `
