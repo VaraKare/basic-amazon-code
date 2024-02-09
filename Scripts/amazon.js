@@ -1,5 +1,5 @@
-// importing cart and changing its name to mycart to avoid naming errors
-import {cart as myCart} from '../data/cart.js';//.. refers to moving out of amazon.js file
+// importing cart and changing its name to mycart to avoid naming errors by using import {cart as myCart}
+import {cart , addToCart} from '../data/cart.js';//.. refers to moving out of amazon.js file
 import {products} from '../data/products.js';
 let productHTML = '';
 products.forEach((products)=> {
@@ -60,30 +60,20 @@ products.forEach((products)=> {
 
 document.querySelector('.js-products-grid').innerHTML = productHTML;
 
+function updateCartQuantity(){
+      let cartQuantity = 0;
+      cart.forEach((cartItem) => {
+            cartQuantity += cartItem.quantity;
+      });
+      //loop through each cartItem in cart to change quantity count in cart image
+      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+}
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
       button.addEventListener('click' , () => {
       const productId = button.dataset.productId;
-            let matchingItem;
-      cart.forEach((item) => {
-            if(productId === item.productId){
-                  matchingItem = item;
-            }
-      });
-      if(matchingItem){
-            matchingItem.quantity += 1;
-      }
-      else{
-            cart.push ({
-                  productId, 
-                  quantity : 1
-            }) ;
-      }
-      //loop through each item in cart to change quantity count in cart image
-      let cartQuantity = 0;
-      cart.forEach((item) => {
-            cartQuantity += item.quantity;
-      });
-      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+           addToCart(productId);
+      
+      updateCartQuantity();
       });
       
 });
