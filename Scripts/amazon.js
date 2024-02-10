@@ -1,6 +1,7 @@
 // importing cart and changing its name to mycart to avoid naming errors by using import {cart as myCart}
 import {cart , addToCart} from '../data/cart.js';//.. refers to moving out of amazon.js file
 import {products} from '../data/products.js';
+import { currencyFormat } from './utility/money.js';
 let productHTML = '';
 products.forEach((products)=> {
     productHTML += `
@@ -23,7 +24,7 @@ products.forEach((products)=> {
           </div>
 
           <div class="product-price">
-                $${(products.priceCents / 100).toFixed(2)}
+                $${currencyFormat(products.priceCents)}
           </div>
 
           <div class="product-quantity-container">
