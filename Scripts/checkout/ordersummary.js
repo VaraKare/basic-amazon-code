@@ -4,6 +4,7 @@ import {currencyFormat} from '../utility/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions , getDeliveryOption } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentsummary.js';
+import { updateCartQuantity } from '../checkouts.js';
 // const today = dayjs();
 // const deliveryDate = today.add(7,'days');//number to be added, length of time days or minutes or seconds etc
 // console.log(deliveryDate.format('dddd, MMMM D')); //what kind of format
@@ -114,20 +115,11 @@ export function renderOrderySummery(){
                 const container = document.querySelector(`.js-cart-item-container-${productId}`);
                 container.remove();
                 renderPaymentSummary();
+                updateCartQuantity();
             });   
         });
 
-        function updateCartQuantity() {
-            let cartQuantity = 0;
-
-            cart.forEach((cartItem) => {
-            cartQuantity += cartItem.quantity;
-            });
-        
-            document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`;
-        };
-
-        updateCartQuantity();
+       
 
         document.querySelectorAll('.js-delivery-option').forEach((element)=>{
             element.addEventListener('click',()=>{
