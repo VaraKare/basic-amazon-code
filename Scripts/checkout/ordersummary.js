@@ -1,8 +1,8 @@
 import {cart , removeFromCart, updateDeliveryOption} from '../../data/cart.js';
-import {products} from '../../data/products.js';
+import {products , getProduct} from '../../data/products.js';
 import {currencyFormat} from '../utility/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import { deliveryOptions } from '../../data/deliveryOptions.js';
+import { deliveryOptions , getDeliveryOption } from '../../data/deliveryOptions.js';
 // const today = dayjs();
 // const deliveryDate = today.add(7,'days');//number to be added, length of time days or minutes or seconds etc
 // console.log(deliveryDate.format('dddd, MMMM D')); //what kind of format
@@ -13,20 +13,10 @@ export function renderOrderySummery(){
     cart.forEach((cartItem) => {
         const productId = cartItem.productId;
     
-    let matchingProduct;
-    products.forEach((product)=> {
-    
-        if (product.id === productId ){
-            matchingProduct = product;
-        }
-    });
-    let deliveryOption;
+    const matchingProduct = getProduct(productId);
+    const deliveryOptionId = cartItem.deliveryOptionId;
 
-    deliveryOptions.forEach((option)=> {
-        if(option.id === cartItem.deliveryOptionId){
-            deliveryOption = option;
-        }
-    });
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
 
     const today = dayjs();
     const deliveryDate = today.add(
