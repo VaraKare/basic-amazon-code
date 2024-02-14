@@ -3,6 +3,7 @@ import {products , getProduct} from '../../data/products.js';
 import {currencyFormat} from '../utility/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions , getDeliveryOption } from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentsummary.js';
 // const today = dayjs();
 // const deliveryDate = today.add(7,'days');//number to be added, length of time days or minutes or seconds etc
 // console.log(deliveryDate.format('dddd, MMMM D')); //what kind of format
@@ -112,6 +113,7 @@ export function renderOrderySummery(){
                 removeFromCart(productId);
                 const container = document.querySelector(`.js-cart-item-container-${productId}`);
                 container.remove();
+                renderPaymentSummary();
             });   
         });
 
@@ -136,6 +138,7 @@ export function renderOrderySummery(){
                 updateDeliveryOption(productId,deliveryOptionId);
 
                 renderOrderySummery();
+                renderPaymentSummary();
             });
         });
 }
