@@ -9,6 +9,7 @@ import { updateCartQuantity } from '../checkouts.js';
 // const deliveryDate = today.add(7,'days');//number to be added, length of time days or minutes or seconds etc
 // console.log(deliveryDate.format('dddd, MMMM D')); //what kind of format
 
+
 export function renderOrderySummery(){
     let cartSummaryHTML= '';
 
